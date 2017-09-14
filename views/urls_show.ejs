@@ -1,0 +1,31 @@
+<!--The full URL and its shortened form.-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+  <%- include("./partials/_header") %>
+  <!-- Add your EJS code here -->
+  <!--A list or table of the URLs and their shortened forms.-->
+  <ul>
+    <li> <%= shortURL %>: "http://www.lighthouselabs.ca"</li>
+
+
+    <form method="POST" action="/urls/<%= shortURL%>">
+
+      <input type="text" name="update">
+
+      <button>Edit</button>
+
+
+    </form>
+  </ul>
+<!-- A link for shortening a new URL
+  (this will be a dead link for now, that is it doesn't need to go anywhere since you'll be building its functionality later).-->
+  <a href="">hello</a>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!--urls_index.ejs template to display all the URLs and their shortened forms,
+  //you'll need to pass it the URL data from express_server.js first-->
+
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+
+  </head>
+  <body>
+    <%- include("./partials/_header") %>
+
+
+    <!-- Add your EJS code here -->
+    <!--A list or table of the URLs and their shortened forms.-->
+    <ul>
+      <% for (KEYS in urls) { %>
+        <li> <%= KEYS %> - <%= urls[KEYS] %>
+          <form method="POST" action="/urls/<%= KEYS %>/delete"><button>delete</button></form>
+        </li>
+      <% } %>
+    </ul>
+
+
+<!-- A link for shortening a new URL
+  (this will be a dead link for now, that is it doesn't need to go anywhere since you'll be building its functionality later).
+    <a href="">hello</a>-->
+  </body>
+
+</html>

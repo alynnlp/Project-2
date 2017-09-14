@@ -2,4 +2,17 @@
   <title>TinyApp</title>
   <h1>Shortening URL</h1>
 
-
+  <!--if the local (template) variable username is set/defined,
+   1. display the username and
+   2. a separate logout form which will POST to /logout
+    Otherwise, show the login form.-->
+    <% if(<%= username %> !== null){ %>
+      <%= username %>
+      <form method="POST" action="/urls/logout">
+      </form>
+     <% } else{ %>
+       <form method="POST" action="/urls/login">
+         <p>Username: <input type="text" name="username">
+         <p>Password: <input type="text" name="password">
+         <button>Submit</button></p>
+    <% } %>

@@ -17,6 +17,19 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+const users = {
+  "userRandomID": {
+    id: "userRandomID",
+    email: "user@example.com",
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    id: "user2RandomID",
+    email: "user2@example.com",
+    password: "dishwasher-funk"
+  }
+}
+
 function generateRandomString() {
   var shortURL = "" ;
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -48,6 +61,13 @@ app.get("/urls", (req, res) => {
 app.get("/urls/new", (req, res) => {
   let templateVars = { username: req.cookies["username"]};
   res.render("urls_new", templateVars);
+});
+
+//REGISTRATION
+app.get("/urls/register", (req, res) => {
+  let templateVars = {
+    username: req.cookies["username"]};
+  res.render("urls_regist", templateVars);
 });
 
 //a second route
@@ -86,25 +106,31 @@ app.post("/urls/:id/delete", (req, res) => {
   res.redirect("/urls");
 });
 
-//set cookie
+//COOKIE
 app.post("/urls/login", (req, res) => {
   //right is where it coming from
   res.cookie("username", req.body.username);
   res.redirect("/urls");
 });
-//logout
+//logOUT
 app.post("/urls/logout", (req, res) => {
-  res.clearCookie('username', {path:'/urls/logout' });
+  res.clearCookie('username');
   res.redirect("/urls");
 });
 
-//UPDATE:
+//REGISTRATION HANDLER
+app.post("/urls/register", (req, res) => {
+  res.clearCookie('username');
+  res.redirect("/urls");
+});
+
+
+//UPDATE rmb this has a PLACEHOLDER
 app.post("/urls/:id", (req, res) => {
   //right is where it coming from
   urlDatabase[req.params.id] = req.body.update
   res.redirect("/urls");
 });
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

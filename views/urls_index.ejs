@@ -14,10 +14,10 @@
 <!-- allow to use JS within template -->
      <% for (KEYS in urls) { %>
        <!--the urls is the templateVars object which can be passed here-->
-      <li> <%= KEYS %> - <%= urls[KEYS] %>
+      <p> <%= KEYS %> - <%= urls[KEYS] %>
         <form method="POST"
         action="/urls/<%= KEYS %>/delete"><button>delete</button></form>
-      </li>
+      </p>
     <% } %>
   </ul>
   <!-- A link for shortening a new URL

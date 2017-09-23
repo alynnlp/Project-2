@@ -1,9 +1,9 @@
 # TinyApp Project!
 
-  TinyApp is a Full-Stack web application built with Node and Express that allows users to shorten longs
-  URLs similar to other web application like TinyURL, Bit.ly or Goo.gl
-  This fully functional web-server(HTTP redirection) and API  will take a regular URL and transforms it into an encoded version, with the help of middleware serves, event-driven programming, and template engines.
+  TinyApp is a full-stack web application built with Node and Express that allows users to shorten longs
+  URLs, which is similar to other web application like TinyURL, Bit.ly or Goo.gl
 
+  This fully functional web-server(HTTP redirection) and API  will take a regular URL and transforms it into an encoded version, with the help of middleware servers, event-driven programming, and template engines.
 
 # Preview
 
@@ -21,11 +21,12 @@
 
 # Behaviour (Back-end)
 
-  1. Shortening URL / delete / edit
+  1. Shortening URL / delete & edit / Cookie
 
     a. GET   
 
       i. /
+
         if user is logged in:
         (Minor) redirect to /urls
         if user is not logged in:
@@ -40,9 +41,6 @@
         the short URL's matching long URL
         an edit button which makes a GET request to /urls/:id
         a delete button which makes a POST request to /urls/:id/delete
-        (Stretch) the date the short URL was created
-        (Stretch) the number of times the short URL was visited
-        (Stretch) the number number of unique visits for the short URL
         (Minor) a link to "Create a New Short Link" which makes a GET request to /urls/new
         if user is not logged in:
         returns HTML with a relevant error message
@@ -67,9 +65,6 @@
         a form which contains:
         the corresponding long URL
         an update button which makes a POST request to /urls/:id
-        (Stretch) the date the short URL was created
-        (Stretch) the number of times the short URL was visited
-        (Stretch) the number of unique visits for the short URL
         if a URL for the given ID does not exist:
         (Minor) returns HTML with a relevant error message
         if user is not logged in:

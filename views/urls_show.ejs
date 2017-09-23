@@ -1,32 +1,26 @@
-<!--what is on the HOMEPAGE*** /urls
-once you generated the shortened URL > redirect to this page with EDIT BUTTON
-the EDIT button is to change your LONGURL to the same shortened url you made earlier
--->
+<!-- display a singl URLs and its SHORTENED form
+shortened URLs with EDIT BUTTON to change a new LONGURLs destination -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 </head>
-<body>
-  <%- include("./partials/_header") %>
-  <center>
 
-  <!-- Add your EJS code here -->
-  <!--A list or table of the URLs and their shortened forms.-->
-  <ul>
-    <!-- shortURL is a key and = a VALUE of this key-->
-    <p><%= shortURL %>: <%= longURL %></p> <!--????????????-->
-    <form method="POST" action="/urls/<%=shortURL%>">
-      <input type="text" name="update">
-      <button>Edit</button>
-    </form>
+  <body>
+    <%- include("./partials/_header") %>
+    <center>
 
-  </ul>
-<!-- A link for shortening a new URL
-  (this will be a dead link for now,
-  that is it doesn't need to go anywhere
-  since you'll be building its functionality later).
-  <a href="">hello</a>-->
-</center></body>
+    <!-- Add your EJS code here -->
+    <!--A list or table of the URLs and their shortened forms.-->
+      <ul>
+        <!-- shortURL is a key and = a VALUE of this key-->
+        <p><%= shortURL %>: <%= longURL %></p> <!--????????????-->
+        <form method="POST" action="/urls/<%=shortURL%>">
+          <input type="text" name="update">
+          <button>Edit</button>
+        </form>
+
+      </ul>
+    </center>
+  </body>
 
 </html>

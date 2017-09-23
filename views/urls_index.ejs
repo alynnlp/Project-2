@@ -1,26 +1,26 @@
-<!--urls_index.ejs template to display all the URLs and their shortened forms,
--->
+  <!--display lisf of URLs and their shortened forms and link
+  1. not able to add CSS-->
   <!DOCTYPE html>
   <html lang="en">
-  <head></head>
+  <head>
+  </head>
+
   <body>
     <%- include("./partials/_header") %>
-  <center>
-  <!-- Add your EJS code here -->
-  <!--A list or table of the URLs and their shortened forms.-->
-  <ul>
-<!-- allow to use JS within template -->
-     <% for (KEYS in urls) { %>
-       <!--the urls is the templateVars object which can be passed here-->
-      <p> <%= KEYS %> - <%= urls[KEYS] %>
-        <form method="POST"
-        action="/urls/<%= KEYS %>/delete"><button>delete</button></form>
-      </p>
-    <% } %>
-  </ul>
-  <!-- A link for shortening a new URL
-  <a href="">hello</a>-->
-  </center>
+    <center>
+      <ul>
+         <% for (KEYS in urls) { %>
+           <!--the urls is the templateVars object which can be passed here-->
+          <p class="library"> <%= KEYS %> - <%= urls[KEYS] %>
+            <form method="POST"
+            action="/urls/<%= KEYS %>/delete"><button>delete</button></form>
+          </p>
+        <% } %>
+      </ul>
+    <!-- A link for shortening a new URL-->
+    <a href="">To Shorten your URL >> Click HERE</a>
+
+    </center>
   </body>
 
   </html>

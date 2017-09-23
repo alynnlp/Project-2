@@ -1,10 +1,11 @@
-//I am working with express and ejs, from the Node_module
+
 // what send to the server will not be displayed to the browser as a reponse
 // so we need to set the request as a variable = templateVARS
 var express = require("express");
-var cookieParser = require('cookie-parser');
 var app = express(); //express now is a function
-var PORT = process.env.PORT || 8080; // default port 8080, to listen to it so we can view on browser
+var PORT = process.env.PORT || 8080;
+
+var cookieParser = require('cookie-parser');
 app.set("view engine", "ejs") //template needs a template engine
 //Middleware - access POST request parameters e.g. req.body.longURL
 const bodyParser = require("body-parser");
@@ -60,17 +61,17 @@ function checkforUsername(UsernameToCheck){
   return false;
 }
 
-//at registers a handler on the root path, "/".
 app.get("/", (req, res) => {
-  res.end("Hello!");
+  res.end("Hello!"); //can be a string or HTML
 });
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase); //is an object
 });
-
+//HOME page - Library
 app.get("/urls", (req, res) => {
   let randomId = generateRandomUsersId()
   let user = checkforUsername(req.cookies.username)
+
   let templateVars = {
     urls: urlDatabase,
     user: user,
@@ -94,6 +95,7 @@ app.get("/urls/register", (req, res) => {
   res.render("urls_regist", templateVars);
 });
 
+//single shortened URL with edit button
 app.get("/urls/:id", (req, res) => {
   //:id in this case = <%=shortURL%>
   let templateVars = { shortURL: req.params.id,

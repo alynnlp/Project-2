@@ -1,6 +1,8 @@
 
   <title>TinyApp</title>
-  <h1>Shortening URL</h1>
+
+  <center>
+  <h1>Shortening URLs</h1>
 
   <!--if the local (template) variable username is set/defined,
    1. display the username and
@@ -9,7 +11,9 @@
     <% if(!<%= username %>){ %>
       <%= username %>
       <form method="POST" action="/urls/logout">
+      <button style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 8px; background-color:grey;border-radius:10px">Logout</button>
       </form>
+
      <% } else{ %>
        <form method="POST" action="/urls/login">
         <p>
@@ -21,3 +25,4 @@
         </p>
       </form>
     <% } %>
+</center>

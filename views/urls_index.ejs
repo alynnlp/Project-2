@@ -1,30 +1,30 @@
-<!--urls_index.ejs template to display all the URLs and their shortened forms,
--->
-  <!DOCTYPE html>
-  <html lang="en">
-  <head></head>
+  <!--display lisf of URLs and their shortened forms and link
+  1. ***not able to add CSS-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  </head>
+
   <body>
-    <%- include("./partials/_header") %>
-  <center>
-
-
-  <!-- Add your EJS code here -->
-  <!--A list or table of the URLs and their shortened forms.-->
-  <ul>
-<!-- allow to use JS within template -->
-     <% for (KEYS in urls) { %>
-       <!--the urls is the templateVars object which can be passed here-->
-      <li> <%= KEYS %> - <%= urls[KEYS] %>
-        <form method="POST"
-        action="/urls/<%= KEYS %>/delete"><button>delete</button></form>
-      </li>
-    <% } %>
-  </ul>
-  <!-- A link for shortening a new URL
-  (this will be a dead link for now, that is it doesn't need to go
-  anywhere since you'll be building its functionality later).
-  <a href="">hello</a>-->
-  </center>
+    <div style="margin: 0 auto; width: 50%; padding: 10px;">
+      <%- include("./partials/_header") %>
+      <p style="text-align: center">TO SHORTEN YOUR URL >>
+        <a href="/urls/new" style="color: #CD5C5C">CLICK HERE</a>
+      </p>
+      <ul style="border: 3px solid #000; padding: 20px 20px">
+        <h2>Shortened-URLs Library</h2>
+        <% for (KEYS in urls) { %>
+          <!--the urls is the templateVars object which can be passed here-->
+          <form method="POST" action="/urls/<%= KEYS %>/delete">
+            <li class="library" style="padding: 10px; display: flex; justify-content: space-between"> <%= KEYS %>  ---->  <%= urls[KEYS] %>
+              <div>
+                <a href="/urls/<%= KEYS %>" style="padding-left: 10px; text-decoration: underline; color: #CD5C5C">EDIT</a>
+                <button style="color: #fff; font-size: 12px; margin: 0 0 0 10px; padding: 5px; background-color:#F08080;border-radius:10px">DELETE</button>
+              </div>
+            </li>
+          </form>
+        <% } %>
+      </ul>
+    </div>
   </body>
-
-  </html>
+</html>

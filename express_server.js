@@ -1,4 +1,3 @@
-//Middleware - express etc...
 var express = require("express");
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
@@ -67,9 +66,10 @@ app.get("/urls.json", (req, res) => {
 //REGISTRATION
 app.get("/urls/register", (req, res) => {
     let templateVars = {
-      username: req.cookies.username,
-      userObject: users[1]
-    };
+    username: req.cookies.username,
+    userObject: users[1]
+    }
+  ;
   res.render("urls_regist", templateVars);
 });
 

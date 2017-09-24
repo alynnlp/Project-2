@@ -5,7 +5,7 @@
 var express = require("express");
 var app = express(); //express now is a function
 var PORT = process.env.PORT || 8080;
-const bodyParser = require("body-parser")//access POST request parameters e.g. req.body.longURL
+var bodyParser = require("body-parser")//access POST request parameters e.g. req.body.longURL
 var cookieParser = require('cookie-parser');
 
 app.set("view engine", "ejs")

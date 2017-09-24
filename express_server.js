@@ -1,14 +1,12 @@
 //I am working with express and ejs, i need to requrie it from the Node_module
 var express = require("express");
+var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
 var app = express(); //express now is a function
 var PORT = process.env.PORT || 8080; // default port 8080, to listen to it so we can view on browser
+
 app.set("view engine", "ejs") //template needs a template engine
-
-//Middleware - access POST request parameters e.g. req.body.longURL
-const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
-
 app.use(cookieParser());
 
 //req.body.longURL >> which we will store in a var = urlDatabase (later)

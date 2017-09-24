@@ -6,13 +6,18 @@
    1. display the username and
    2. a separate logout form which will POST to /logout
     Otherwise, show the login form.-->
-    <% if(<%= username %> !== null){ %>
+    <% if(!<%= username %>){ %>
       <%= username %>
       <form method="POST" action="/urls/logout">
       </form>
      <% } else{ %>
        <form method="POST" action="/urls/login">
-         <p>Username: <input type="text" name="username">
-         <p>Password: <input type="text" name="password">
-         <button>Submit</button></p>
+        <p>
+          Username: <input type="text" name="username">
+        </p>
+        <p>
+          Password: <input type="text" name="password">
+          <button>Submit</button>
+        </p>
+      </form>
     <% } %>

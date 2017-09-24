@@ -1,4 +1,4 @@
-//I am working with express and ejs, i need to requrie it from the Node_module
+//Middleware - express etc...
 var express = require("express");
 var bodyParser = require("body-parser");
 var cookieParser = require('cookie-parser');
@@ -6,104 +6,161 @@ var app = express(); //express now is a function
 var PORT = process.env.PORT || 8080; // default port 8080, to listen to it so we can view on browser
 
 app.set("view engine", "ejs") //template needs a template engine
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(cookieParser());
+app.use(bodyParser.urlencoded({extended: true})); //able to pass JS to HTML at EJS
+app.use(cookieParser()); //read the values from the cookie >> to set the value > res.cookies from Express
 
-//req.body.longURL >> which we will store in a var = urlDatabase (later)
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
 };
+const users = {
+  "userRandomID": {
+    username: "abd",
+    email: "user@example.com",
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    username: "123",
+    email: "user2@example.com",
+    password: "dishwasher-funk"
+  }
+}
 
-function generateRandomString() {
+function generateRandomString() {//***whats the limitation
   var shortURL = "" ;
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (var i = 0; i < 6; i++)
     shortURL += possible.charAt(Math.floor(Math.random() * possible.length));
   return shortURL;
 }
+function generateRandomUsersId() {
+  var usersRandomId = "" ;
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < 6; i++)
+    usersRandomId += possible.charAt(Math.floor(Math.random() * possible.length));
+  return usersRandomId;
+}
+function checkforEmail(emailToCheck){
+  for (user in users){
+    if (user.email === emailToCheck) {
+      return true;
+    }
+  return false;
+  }
+}
+function checkforUsername(UsernameToCheck){
+  for (user in users){
+    if (user.username === UsernameToCheck) {
+      return user;
+    }
+  }
+  return false;
+}
 
-//at registers a handler on the root path, "/".
 app.get("/", (req, res) => {
-  res.end("Hello!");
+  res.end("<html><center>Hello!</center></html>"); //can be a string or HTML
 });
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase); //is an object
 });
-// //html is not able to show
-// app.get("/hello", (req, res) => {
-//   res.end("<html><body>Hello<b>World</b></body></html>");
-// });
 
-//***(1)this will first give me a blank page until I add something in the body of the ejs template
+//REGISTRATION
+app.get("/urls/register", (req, res) => {
+    let templateVars = {
+      username: req.cookies.username,
+      userObject: users[1]
+    };
+  res.render("urls_regist", templateVars);
+});
+
+//HOME page - Library
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase,
-    username: req.cookies["username"]};
+  let randomId = generateRandomUsersId()
+  let user = checkforUsername(req.cookies.username)
+  let templateVars = {
+    urls: urlDatabase,
+    user: user,
+    userObject: users[1]
+  };
   res.render("urls_index", templateVars);
 });
 
-//FORM page
+//long URLs FORM submission page
 app.get("/urls/new", (req, res) => {
-  let templateVars = { username: req.cookies["username"]};
+  let templateVars = { user: req.cookies.users,
+  };
   res.render("urls_new", templateVars);
 });
 
-//a second route
-// what send to the server will not be displayed to the browser as a reponse
-// so we need to set the request as a variable = templateVARS
-//
+//Editing a single shortened URL
 app.get("/urls/:id", (req, res) => {
-  //req.params is grabbing the end point of the link above
-  //:id in this case = <%=shortURL%>
   let templateVars = { shortURL: req.params.id,
     longURL: urlDatabase[req.params.id],
-      username: req.cookies["username"]};
-      console.log(templateVars);
+    username: req.cookies.username,
+    userObject: users[1]
+  };
   res.render("urls_show", templateVars);
 });
 
-//template that we created uses method="post". POST request to submit form data.
-//This corresponds with the app.post(...) on the server-side code!
-app.post("/urls", (req, res) => {
-  console.log(req.body);  // debug statement to see POST parameters
-//adding the new generated string to the object once I submitted the longURL
-  urlDatabase[generateRandomString()] = req.body.longURL; //where I call the generated short string
-  res.redirect("/urls"); // Respond with 'Ok' (we will replace this)
-});
-
-//your server will need to send a response back to the client.
+//redirecting shortURL to longURL page
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL]
+  let longURL = urlDatabase[req.params.shortURL]//req.params to grab the generated shortURL
   res.redirect(longURL);
 });
 
-//DELETE: form only support get and post, so post will do the delete operation
-// to remove existing shortened URL
+/************************POST Request******************************/
+
+//POST form request add to the library on /urls
+app.post("/urls", (req, res) => {
+  urlDatabase[generateRandomString()] = req.body.longURL;//from urls_new.ejs form
+  res.redirect("/urls");
+});
+
+//DELETE
 app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id]
+  delete urlDatabase[req.params.id] //deleting the value = delete the item from obj
   res.redirect("/urls");
 });
 
-//set cookie
+//COOKIE
 app.post("/urls/login", (req, res) => {
-  //right is where it coming from
-  res.cookie("username", req.body.username);
-  res.redirect("/urls");
-});
-//logout
-app.post("/urls/logout", (req, res) => {
-  res.clearCookie('username', {path:'/urls/logout' });
+  res.cookie("user", req.body.username);
   res.redirect("/urls");
 });
 
-//UPDATE:
+app.post("/urls/logout", (req, res) => {
+  res.clearCookie('user');
+  res.redirect("/urls");
+});
+
+//REGISTRATION HANDLER
+app.post("/urls/register", (req, res) => {
+  let newUserId = generateRandomUsersId()
+
+  if(req.body.email.length < 1 || req.body.password.length < 1 ){
+    res.sendStatus(400).send('please input something!');
+
+    //register with an existing user's email,
+  } else if(checkforEmail(req.body.email)){
+    res.sendStatus(400).send('please input another email!');
+  } else {
+    users[newUserId] = {
+      id: newUserId,
+      email: req.body.email,
+      password: req.body.password
+    }
+  }
+  //console.log("yayyyyy" + JSON.stringify(users));
+  res.cookie("user_id", newUserId);
+  res.redirect("/urls");
+
+});
+
+//UPDATE PLACEHOLDER >:id needs to be in the bottom
 app.post("/urls/:id", (req, res) => {
-  //right is where it coming from
   urlDatabase[req.params.id] = req.body.update
   res.redirect("/urls");
 });
-
-
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });

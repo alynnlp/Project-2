@@ -153,7 +153,6 @@ app.post("/urls/register", (req, res) => {
   //console.log("yayyyyy" + JSON.stringify(users));
   res.cookie("user_id", newUserId);
   res.redirect("/urls");
-
 });
 
 //UPDATE PLACEHOLDER >:id needs to be in the bottom

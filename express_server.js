@@ -1,23 +1,10 @@
-
-// what send to the server will not be displayed to the browser as a reponse
-// so we need to set the request as a variable = templateVARS
-//Middleware - express
 var express = require("express");
-<<<<<<< HEAD
 var app = express(); //express now is a function
 var PORT = process.env.PORT || 8080;
 var bodyParser = require("body-parser")//access POST request parameters e.g. req.body.longURL
 var cookieParser = require('cookie-parser');
 
 app.set("view engine", "ejs")
-=======
-var bodyParser = require("body-parser");
-var cookieParser = require('cookie-parser');
-var app = express(); //express now is a function
-var PORT = process.env.PORT || 8080; // default port 8080, to listen to it so we can view on browser
-
-app.set("view engine", "ejs") //template needs a template engine
->>>>>>> feature/cookies
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 

@@ -9,15 +9,15 @@
     <div style="margin: 0 auto; width: 50%; padding: 10px;">
       <%- include("./partials/_header") %>
       <p style="text-align: center">TO SHORTEN YOUR URL >>
-        <a href="/urls/new">CLICK HERE</a>
+        <a href="/urls/new" style="color: #CD5C5C">CLICK HERE</a>
       </p>
       <ul style="border: 3px solid #000; margin: 50px 0">
         <h2>Shortened-URLs Library</h2>
         <% for (KEYS in urls) { %>
           <!--the urls is the templateVars object which can be passed here-->
           <form method="POST" action="/urls/<%= KEYS %>/delete">
-            <li class="library" style="padding: 10px"> <%= KEYS %> : <%= urls[KEYS] %>
-            <a href="/urls/<%= KEYS %>" style="padding-left: 10px">EDIT</a>
+            <li class="library" style="padding: 10px"> <%= KEYS %>  ---->  <%= urls[KEYS] %>
+            <a href="/urls/<%= KEYS %>" style="padding-left: 10px; text-decoration: underline; color: #CD5C5C">EDIT</a>
             <button style="color: #fff; font-size: 12px; margin: 10px 0 0 10px; padding: 5px; background-color:#F08080;border-radius:10px">DELETE</button>
             </li>
           </form>

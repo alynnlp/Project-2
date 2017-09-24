@@ -1,26 +1,28 @@
   <!--display lisf of URLs and their shortened forms and link
-  1. not able to add CSS-->
-  <!DOCTYPE html>
-  <html lang="en">
+  1. ***not able to add CSS-->
+<!DOCTYPE html>
+<html lang="en">
   <head>
   </head>
 
   <body>
-    <%- include("./partials/_header") %>
-    <center>
-      <ul>
-         <% for (KEYS in urls) { %>
-           <!--the urls is the templateVars object which can be passed here-->
-          <p class="library"> <%= KEYS %> - <%= urls[KEYS] %>
-            <form method="POST"
-            action="/urls/<%= KEYS %>/delete"><button>delete</button></form>
-          </p>
+    <div style="margin: 0 auto; width: 50%; padding: 10px;">
+      <%- include("./partials/_header") %>
+      <p style="text-align: center">TO SHORTEN YOUR URL >>
+        <a href="/urls/new">CLICK HERE</a>
+      </p>
+      <ul style="border: 3px solid #000; margin: 50px 0">
+        <h2>Shortened-URLs Library</h2>
+        <% for (KEYS in urls) { %>
+          <!--the urls is the templateVars object which can be passed here-->
+          <form method="POST" action="/urls/<%= KEYS %>/delete">
+            <li class="library" style="padding: 10px"> <%= KEYS %> : <%= urls[KEYS] %>
+            <a href="/urls/<%= KEYS %>" style="padding-left: 10px">EDIT</a>
+            <button style="color: #fff; font-size: 12px; margin: 10px 0 0 10px; padding: 5px; background-color:#F08080;border-radius:10px">DELETE</button>
+            </li>
+          </form>
         <% } %>
       </ul>
-    <!-- A link for shortening a new URL-->
-    <a href="">To Shorten your URL >> Click HERE</a>
-
-    </center>
+    </div>
   </body>
-
-  </html>
+</html>

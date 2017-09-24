@@ -1,18 +1,17 @@
 
 // what send to the server will not be displayed to the browser as a reponse
 // so we need to set the request as a variable = templateVARS
+//Middleware - express
 var express = require("express");
 var app = express(); //express now is a function
 var PORT = process.env.PORT || 8080;
-
+const bodyParser = require("body-parser")//access POST request parameters e.g. req.body.longURL
 var cookieParser = require('cookie-parser');
-app.set("view engine", "ejs") //template needs a template engine
-//Middleware - access POST request parameters e.g. req.body.longURL
-const bodyParser = require("body-parser");
+
+app.set("view engine", "ejs")
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
-//req.body.longURL >> which we will store in a var = urlDatabase (later)
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com"
@@ -30,7 +29,7 @@ const users = {
   }
 }
 
-function generateRandomString() {
+function generateRandomString() {//***whats the limitation
   var shortURL = "" ;
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   for (var i = 0; i < 6; i++)
@@ -62,29 +61,10 @@ function checkforUsername(UsernameToCheck){
 }
 
 app.get("/", (req, res) => {
-  res.end("Hello!"); //can be a string or HTML
+  res.end("<html><center>Hello!</center></html>"); //can be a string or HTML
 });
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase); //is an object
-});
-//HOME page - Library
-app.get("/urls", (req, res) => {
-  let randomId = generateRandomUsersId()
-  let user = checkforUsername(req.cookies.username)
-
-  let templateVars = {
-    urls: urlDatabase,
-    user: user,
-    userObject: users[1]
-  };
-  res.render("urls_index", templateVars);
-});
-
-//FORM page
-app.get("/urls/new", (req, res) => {
-  let templateVars = { user: req.cookies.users,
-  };
-  res.render("urls_new", templateVars);
 });
 
 //REGISTRATION
@@ -95,36 +75,52 @@ app.get("/urls/register", (req, res) => {
   res.render("urls_regist", templateVars);
 });
 
-//single shortened URL with edit button
+//HOME page - Library
+app.get("/urls", (req, res) => {
+  let randomId = generateRandomUsersId()
+  let user = checkforUsername(req.cookies.username)
+  let templateVars = {
+    urls: urlDatabase,
+    user: user,
+    userObject: users[1]
+  };
+  res.render("urls_index", templateVars);
+});
+
+//long URLs FORM submission page
+app.get("/urls/new", (req, res) => {
+  let templateVars = { user: req.cookies.users,
+  };
+  res.render("urls_new", templateVars);
+});
+
+//Editing a single shortened URL
 app.get("/urls/:id", (req, res) => {
-  //:id in this case = <%=shortURL%>
   let templateVars = { shortURL: req.params.id,
     longURL: urlDatabase[req.params.id],
     username: req.cookies.username,
-    userObject: users[1]};
-    console.log(templateVars);
+    userObject: users[1]
+  };
   res.render("urls_show", templateVars);
 });
 
-//your server will need to send a response back to the client.
+//redirecting shortURL to longURL page
 app.get("/u/:shortURL", (req, res) => {
-  let longURL = urlDatabase[req.params.shortURL]
+  let longURL = urlDatabase[req.params.shortURL]//req.params to grab the generated shortURL
   res.redirect(longURL);
 });
-/******************************************************/
 
-//template that we created uses method="post". POST request to submit form data.
+/************************POST Request******************************/
+
+//POST form request add to the library on /urls
 app.post("/urls", (req, res) => {
-  console.log(req.body);  // debug statement to see POST parameters
-//adding the new generated string to the object once I submitted the longURL
-  urlDatabase[generateRandomString()] = req.body.longURL; //where I call the generated short string
-  res.redirect("/urls"); // Respond with 'Ok' (we will replace this)
+  urlDatabase[generateRandomString()] = req.body.longURL;//from urls_new.ejs form
+  res.redirect("/urls");
 });
 
-//DELETE: form only support get and post, so post will do the delete operation
-// to remove existing shortened URL
+//DELETE
 app.post("/urls/:id/delete", (req, res) => {
-  delete urlDatabase[req.params.id]
+  delete urlDatabase[req.params.id] //deleting the value = delete the item from obj
   res.redirect("/urls");
 });
 
@@ -162,7 +158,7 @@ app.post("/urls/register", (req, res) => {
 
 });
 
-//UPDATE rmb this has a PLACEHOLDER for POST
+//UPDATE PLACEHOLDER >:id needs to be in the bottom
 app.post("/urls/:id", (req, res) => {
   urlDatabase[req.params.id] = req.body.update
   res.redirect("/urls");

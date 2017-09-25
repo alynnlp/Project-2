@@ -47,9 +47,9 @@ function checkforEmail(emailToCheck){
   return false;
   }
 }
-function checkforUsername(UsernameToCheck){
+function checkforUsername(usernameToCheck){
   for (user in users){
-    if (user.username === UsernameToCheck) {
+    if (user.username === usernameToCheck) {
       return user;
     }
   }
@@ -84,14 +84,12 @@ app.get("/urls", (req, res) => {
   };
   res.render("urls_index", templateVars);
 });
-
 //long URLs FORM submission page
 app.get("/urls/new", (req, res) => {
   let templateVars = { user: req.cookies.users,
   };
   res.render("urls_new", templateVars);
 });
-
 //Editing a single shortened URL
 app.get("/urls/:id", (req, res) => {
   let templateVars = { shortURL: req.params.id,
@@ -101,7 +99,6 @@ app.get("/urls/:id", (req, res) => {
   };
   res.render("urls_show", templateVars);
 });
-
 //redirecting shortURL to longURL page
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL]//req.params to grab the generated shortURL
@@ -127,7 +124,6 @@ app.post("/urls/login", (req, res) => {
   res.cookie("user", req.body.username);
   res.redirect("/urls");
 });
-
 app.post("/urls/logout", (req, res) => {
   res.clearCookie('user');
   res.redirect("/urls");
@@ -139,7 +135,6 @@ app.post("/urls/register", (req, res) => {
 
   if(req.body.email.length < 1 || req.body.password.length < 1 ){
     res.sendStatus(400).send('please input something!');
-
     //register with an existing user's email,
   } else if(checkforEmail(req.body.email)){
     res.sendStatus(400).send('please input another email!');

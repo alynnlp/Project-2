@@ -66,8 +66,8 @@ app.get("/urls.json", (req, res) => {
 //REGISTRATION
 app.get("/urls/register", (req, res) => {
   let templateVars = {
-    username: req.cookies.username}
-    //userObject: users[1]};
+    username: req.cookies.username,
+  };
   res.render("urls_regist", templateVars);
 });
 
@@ -77,25 +77,27 @@ app.get("/urls", (req, res) => {
   let user = checkforUsername(req.cookies.username)
   let templateVars = {
     urls: urlDatabase,
+    username: req.cookies.username,
     user: user,
-    userObject: users[1]
   };
   res.render("urls_index", templateVars);
 });
 
 //long URLs FORM submission page
 app.get("/urls/new", (req, res) => {
-  let templateVars = { user: req.cookies.users,
+  let templateVars = {
+    user: req.cookies.users,
+    username: req.cookies.username,
   };
   res.render("urls_new", templateVars);
 });
 
 //Editing a single shortened URL
 app.get("/urls/:id", (req, res) => {
-  let templateVars = { shortURL: req.params.id,
+  let templateVars = {
+    shortURL: req.params.id,
     longURL: urlDatabase[req.params.id],
     username: req.cookies.username,
-    userObject: users[1]
   };
   res.render("urls_show", templateVars);
 });
@@ -103,6 +105,9 @@ app.get("/urls/:id", (req, res) => {
 //redirecting shortURL to longURL page
 app.get("/u/:shortURL", (req, res) => {
   let longURL = urlDatabase[req.params.shortURL]//req.params to grab the generated shortURL
+  let templateVars = {
+    username: req.cookies.username,
+  };
   res.redirect(longURL);
 });
 
@@ -122,12 +127,12 @@ app.post("/urls/:id/delete", (req, res) => {
 
 //COOKIE
 app.post("/urls/login", (req, res) => {
-  res.cookie("user", req.body.username);
+  res.cookie("username", req.body.username);
   res.redirect("/urls");
 });
 
 app.post("/urls/logout", (req, res) => {
-  res.clearCookie('user');
+  res.clearCookie('username');
   res.redirect("/urls");
 });
 

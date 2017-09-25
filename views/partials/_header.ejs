@@ -4,19 +4,27 @@
 <!-- 1. display the username and
  2. a separate logout form which will POST to /logout
   Otherwise, show the login form.-->
-  <% if(true){ %>
-      username
-      <form method="POST" action="/urls/logout">
-        <button style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 8px; background-color:grey;border-radius:10px">Login</button>
-      </form>
-  <% } else{ %>
+  <% if (username) { %>
+    <%= username %>
+    <form method="POST" action="/urls/logout">
+      <button style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 8px; background-color:grey;border-radius:10px">Logout</button>
+    </form>
+  <% } else { %>
+    <p> Login </p>
     <form method="POST" action="/urls/login">
       <div>
         Username: <input type="text" name="username">
        <br/>
         Password: <input type="text" name="password">
-        <button style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 5px; background-color:#F08080;border-radius:10px">Submit</button>
+        <button style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 8px; background-color:grey;border-radius:10px">Login</button>
       </div>
     </form>
   <% } %>
+
+    <!--<form method="POST" action="/urls/logout">
+      <button style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 8px; background-color:grey;border-radius:10px">Login</button>
+    </form>-->
+
+
+
 </center>

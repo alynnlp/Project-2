@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
   </head>
   <body style="font-size:20px; padding:50px;">
     <%- include("./partials/_header") %>
     <center>
-
-    <form action="/urls/register" method="POST">
-      <p>
-      <label for="email">Enter an Email:</label>
-      <input type="email" name="email" placeholder="example@gmail.com" style="width: 300px">
-      <input type="password" name="password" placeholder="password here" style="width: 300px">
-      <input type="submit" value="Submit">
-      </p>
-    </form>
-
+      <form action="/urls/register" method="POST">
+        <p>
+          Email : <input type="email" name="email" placeholder="example@gmail.com" style="width: 300px">
+        </p>
+        <p>
+          Password : <input type="password" name="password" placeholder="password here" style="width: 300px">
+          <input type="submit" value="Submit" style="color: #fff; font-size: 12px; margin: 10px 0 0 20px; padding: 5px; background-color:#F08080;border-radius:10px">
+        </p>
+      </form>
     </center>
   </body>
 </html>

@@ -137,14 +137,14 @@ app.post("/urls/:id/delete", (req, res) => {
 app.post("/urls/login", (req, res) => {
 
   if(req.body.username.length < 1 || req.body.password.length < 1 ){
-    res.status(400).send('please input something!');
+    res.redirect("/urls/register");
     //register with an existing user's email,
   } else if(!(checkforUsername(req.body.username)) || !(checkforPassword(req.body.password))){
-    res.status(400).send('wrong username or password!');
+    res.redirect("/urls/register");
   } else if(checkforUsername(req.body.username) && checkforPassword(req.body.password)){
     res.cookie("username", req.body.username);
+    res.redirect("/urls");
   }
-  res.redirect("/urls");
 });
 
 //Logout

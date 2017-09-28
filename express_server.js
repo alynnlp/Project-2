@@ -41,15 +41,23 @@ function generateRandomUsersId() {
 }
 function checkforEmail(emailToCheck){
   for (user in users){
-    if (user.email === emailToCheck) {
+    if (users[user].email === emailToCheck) {
       return true;
     }
-  return false;
   }
+  return false;
 }
 function checkforUsername(UsernameToCheck){
   for (user in users){
-    if (user.username === UsernameToCheck) {
+    if (users[user].username === UsernameToCheck) {
+      return user;
+    }
+  }
+  return false;
+}
+function checkforPassword(PasswordToCheck){
+  for (user in users){
+    if (users[user].password === PasswordToCheck) {
       return user;
     }
   }
@@ -127,10 +135,19 @@ app.post("/urls/:id/delete", (req, res) => {
 
 //COOKIE
 app.post("/urls/login", (req, res) => {
-  res.cookie("username", req.body.username);
+
+  if(req.body.username.length < 1 || req.body.password.length < 1 ){
+    res.status(400).send('please input something!');
+    //register with an existing user's email,
+  } else if(!(checkforUsername(req.body.username)) || !(checkforPassword(req.body.password))){
+    res.status(400).send('wrong username or password!');
+  } else if(checkforUsername(req.body.username) && checkforPassword(req.body.password)){
+    res.cookie("username", req.body.username);
+  }
   res.redirect("/urls");
 });
 
+//Logout
 app.post("/urls/logout", (req, res) => {
   res.clearCookie('username');
   res.redirect("/urls");
@@ -141,11 +158,11 @@ app.post("/urls/register", (req, res) => {
   let newUserId = generateRandomUsersId()
 
   if(req.body.email.length < 1 || req.body.password.length < 1 ){
-    res.sendStatus(400).send('please input something!');
+    res.status(400).send('please input something!');
 
     //register with an existing user's email,
   } else if(checkforEmail(req.body.email)){
-    res.sendStatus(400).send('please input another email!');
+    res.status(400).send('please input another email!');
   } else {
     users[newUserId] = {
       id: newUserId,
@@ -154,9 +171,8 @@ app.post("/urls/register", (req, res) => {
     }
   }
   //console.log("yayyyyy" + JSON.stringify(users));
-  res.cookie("user_id", newUserId);
+  res.cookie("username", newUserId);
   res.redirect("/urls");
-
 });
 
 //UPDATE PLACEHOLDER >:id needs to be in the bottom

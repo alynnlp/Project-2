@@ -18,30 +18,26 @@
 
   ## Shortening URL
 
-  1. Setting Cookie
+  1. Setting Cookie ["Changed Header after logged-in"](https://github.com/alynnlp/Project-2/blob/master/docs/signedin.png?raw=true)
 
-        <img src="./docs/signedin.png" alt="signedin" width=500 height="350">
-
-      ["Changed Header after logged-in"](https://github.com/alynnlp/tweeter/blob/master/docs/signedin.png?raw=true)
+        <img src="./docs/signedin.png" alt="signedin" width="1000" height="350">
 
       - Once user is logged in / registered, redirect to homepage displaying the user's name   
 
-  2. Creating new data
+  2. Creating new data ["A form to submit a long URL"](https://github.com/alynnlp/Project-2/blob/master/docs/generating.png?raw=true)
 
-      <img src="./docs/generating.png" alt="generatingurl" width=500 height="350">
-
-      ["A form to submit long URL"](https://github.com/alynnlp/tweeter/blob/master/docs/generating.png?raw=true)
+      <img src="./docs/generating.png" alt="generatingurl" width="1000" height="350">
 
       - A form which contains: a text input field for the original (long) URL and a submit button which makes a POST request to /urls
 
-  3. Deleting existing data
+  3. Deleting existing data ["Deleting shortened URL in database"](https://github.com/alynnlp/Project-2/blob/master/docs/shorturl.png?raw=true)
 
-      <img src="./docs/shorturl.png" alt="uploaded" width=500 height="350">
+      <img src="./docs/shorturl.png" alt="uploaded" width="1000" height="350">
 
       - A function, where user is logged-in, using cookie-session to track if the user owns the specific URL, and give permission to user to delete their own URL while staying on the same page
 
-  4. Updating existing data
+  4. Updating existing data ["Updating existing longURL with the same generated shortURL"](https://github.com/alynnlp/Project-2/blob/master/docs/changedurl.png?raw=true)
 
-      <img src="./docs/changedurl.png" alt="linkchanged" width=500 height="350">
+      <img src="./docs/changedurl.png" alt="linkchanged" width="1000" height="350">
 
       - A function, where user is logged-in, using cookie-session to track if the user owns the specific URL, and give permission to user to update their own URL

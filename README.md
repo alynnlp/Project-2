@@ -20,7 +20,7 @@
 
   1. Setting Cookie
 
-      <img src="./docs/signedin.png" alt="signedin" width=1000 height="500">
+        <img src="./docs/signedin.png" alt="signedin" width=500 height="350">
 
       ["Changed Header after logged-in"](https://github.com/alynnlp/tweeter/blob/master/docs/signedin.png?raw=true)
 
@@ -28,7 +28,7 @@
 
   2. Creating new data
 
-      <img src="./docs/generating.png" alt="generatingurl" width=1000 height="500">
+      <img src="./docs/generating.png" alt="generatingurl" width=500 height="350">
 
       ["A form to submit long URL"](https://github.com/alynnlp/tweeter/blob/master/docs/generating.png?raw=true)
 
@@ -36,12 +36,12 @@
 
   3. Deleting existing data
 
-      <img src="./docs/addedtodb.png" alt="uploaded" width=1000 height="500">
+      <img src="./docs/shorturl.png" alt="uploaded" width=500 height="350">
 
       - A function, where user is logged-in, using cookie-session to track if the user owns the specific URL, and give permission to user to delete their own URL while staying on the same page
 
   4. Updating existing data
 
-      <img src="./docs/linkchanged.png" alt="linkchanged" width=1000 height="500">
+      <img src="./docs/changedurl.png" alt="linkchanged" width=500 height="350">
 
       - A function, where user is logged-in, using cookie-session to track if the user owns the specific URL, and give permission to user to update their own URL

@@ -24,7 +24,6 @@ const users = {
     password: "dishwasher-funk"
   }
 }
-
 function generateRandomString() {//***whats the limitation
   var shortURL = "" ;
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
